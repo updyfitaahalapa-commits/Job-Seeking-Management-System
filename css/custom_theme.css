@@ -1,0 +1,203 @@
+:root {
+    /* Default (Light) Theme */
+    --primary: #0f172a;
+    --primary-dark: #020617;
+    --accent: #00d2ff;
+    --accent-glow: rgba(0, 210, 255, 0.3);
+    --premium-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --sidebar-bg: #ffffff;
+    --main-bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --nav-link-color: #64748b;
+    --nav-link-hover: #f1f5f9;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --input-bg: #ffffff;
+    --input-border: #e2e8f0;
+}
+
+body.dark-mode {
+    /* Dark Theme Overrides */
+    --primary: #f8fafc;
+    --primary-dark: #ffffff;
+    --sidebar-bg: #1e293b;
+    --main-bg: #0f172a;
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --nav-link-color: #cbd5e1;
+    --nav-link-hover: #334155;
+    --glass-bg: rgba(15, 23, 42, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --input-bg: #1e293b;
+    --input-border: #334155;
+}
+
+body {
+    background-color: var(--main-bg) !important;
+    color: var(--text-main) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- Layout & Component Overrides --- */
+
+/* Sidebar */
+.sidebar {
+    background: var(--sidebar-bg) !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+.sidebar-header {
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.sidebar .nav-link {
+    color: var(--nav-link-color) !important;
+}
+
+.sidebar .nav-link:hover {
+    background: var(--nav-link-hover) !important;
+}
+
+/* Cards */
+.premium-card,
+.card {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+.card-header,
+.card-footer {
+    border-color: var(--border-color) !important;
+    background-color: transparent !important;
+}
+
+/* Typography Overrides (Scoped to avoid breaking utilities) */
+h1:not(.text-white),
+h2:not(.text-white),
+h3:not(.text-white),
+h4:not(.text-white),
+h5:not(.text-white),
+h6:not(.text-white) {
+    color: var(--text-main) !important;
+}
+
+p:not(.text-white):not(.text-white-50):not(.text-muted) {
+    color: var(--text-main) !important;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+.text-dark {
+    color: var(--text-main) !important;
+}
+
+/* Navbar (Preserve transparency on hero) */
+.navbar {
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--nav-link-color);
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--accent);
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    background-color: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    color: var(--text-main) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--input-bg) !important;
+    border-color: var(--accent) !important;
+    color: var(--text-main) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 210, 255, 0.25);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    /* White by default for hero section */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* In scroleld navbar or dashboards, use theme color */
+.navbar.scrolled .theme-toggle-btn,
+.d-flex .theme-toggle-btn {
+    color: var(--text-main);
+    border-color: var(--border-color);
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(15deg);
+}
+
+.navbar.scrolled .theme-toggle-btn:hover {
+    background: var(--nav-link-hover);
+}
+
+/* Dark Mode Specific Tweaks */
+body.dark-mode .navbar-brand {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .text-dark {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .bg-light {
+    background-color: #1e293b !important;
+}
+
+body.dark-mode .bg-white {
+    background-color: #0f172a !important;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .dropdown-item {
+    color: var(--text-main);
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--nav-link-hover);
+}
