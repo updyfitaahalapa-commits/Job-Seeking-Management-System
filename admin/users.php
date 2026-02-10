@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once '../includes/db.php';
-include 'admin_layout_top.php';
+// Ensure user is logged in and is admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
 
 // Handle Delete
 if (isset($_GET['delete'])) {
@@ -13,6 +17,8 @@ if (isset($_GET['delete'])) {
     header("Location: users.php");
     exit();
 }
+
+include 'admin_layout_top.php';
 
 $users = $pdo->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll();
 ?>

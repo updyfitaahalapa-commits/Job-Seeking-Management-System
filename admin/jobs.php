@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once '../includes/db.php';
-include 'admin_layout_top.php';
+// Ensure user is logged in and is admin before processing any actions
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
 
 // Handle Delete
 if (isset($_GET['delete'])) {
@@ -11,6 +15,8 @@ if (isset($_GET['delete'])) {
     header("Location: jobs.php");
     exit();
 }
+
+include 'admin_layout_top.php';
 
 $jobs = $pdo->query("
     SELECT j.*, u.username as employer_name 

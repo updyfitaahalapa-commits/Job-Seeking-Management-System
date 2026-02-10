@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once '../includes/db.php';
-include 'employer_layout_top.php';
+// Ensure user is logged in and is employer
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'employer') {
+    header("Location: ../login.php");
+    exit();
+}
 
 // Handle Delete
 if (isset($_GET['delete'])) {
@@ -11,6 +15,8 @@ if (isset($_GET['delete'])) {
     header("Location: manage_jobs.php");
     exit();
 }
+
+include 'employer_layout_top.php';
 
 $stmt = $pdo->prepare("SELECT * FROM jobs WHERE employer_id = ? ORDER BY created_at DESC");
 $stmt->execute([$_SESSION['user_id']]);
